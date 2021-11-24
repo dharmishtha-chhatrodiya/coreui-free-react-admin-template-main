@@ -11,23 +11,9 @@ import {
   CAccordionItem,
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 const Accordion = () => {
   return (
     <CRow>
-      <div>
-        <button
-          onClick={() => {
-            toast.success('Success Notification !', {
-              position: toast.POSITION.TOP_LEFT,
-            })
-          }}
-        >
-          Show Toast !
-        </button>
-        <ToastContainer />
-      </div>
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>

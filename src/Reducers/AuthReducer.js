@@ -12,7 +12,7 @@ const initialState = {
   sidebarShow: true,
   notification: {},
   user: {},
-  errors: {},
+  error: {},
 }
 
 export default function (state = initialState, action) {
@@ -20,10 +20,10 @@ export default function (state = initialState, action) {
     case LOGIN_ERR0RS:
       return {
         ...state,
+        error: action.payload.data,
         user: {
           sucess: false,
           isAuthenticated: false,
-          errors: action.payload,
         },
       }
     case SIDEBAR_UPDATE:

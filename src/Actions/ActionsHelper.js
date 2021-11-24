@@ -9,6 +9,7 @@ export const showSuccess = (type, text = '') => {
 }
 
 export const showError = (text) => {
+  console.log('error inn action helper', text)
   if (text === '') {
     // eslint-disable-next-line no-param-reassign
     text = 'There was some error Processing your request.'

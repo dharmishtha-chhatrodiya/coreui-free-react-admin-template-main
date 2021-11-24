@@ -14,6 +14,7 @@ const AppContent = (props) => {
 
   useEffect(() => {
     const { type, text, show } = props.notifications
+    console.log('props in content', props.notifications)
     if (show) toastManager.addToast({ type, text })
   }, [props.notifications])
   return (

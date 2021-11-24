@@ -22,7 +22,6 @@ import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import * as yup from 'yup'
-import { toast, ToastContainer } from 'react-toastify'
 
 const schema = yup.object().shape({
   name: yup
@@ -59,12 +58,7 @@ const Register = (history) => {
     return (
       <>
         <Redirect from="/register" to="/login" />
-        {() => {
-          toast.success('Success Notification !', {
-            position: toast.POSITION.TOP_LEFT,
-          })
-        }}
-        <ToastContainer />
+
         {/* {enqueueSnackbar('User added successfully', { variant: 'success' })} */}
       </>
     )

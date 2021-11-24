@@ -102,6 +102,7 @@ class ToastProvider extends Component {
   render() {
     const { open, type, text } = this.state
     const { classes } = this.props
+    console.log('state', this.state)
     return (
       <Ctx.Provider
         value={{

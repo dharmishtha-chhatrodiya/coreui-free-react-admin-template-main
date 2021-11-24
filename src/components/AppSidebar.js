@@ -21,7 +21,7 @@ const AppSidebar = (props) => {
   const dispatch = useDispatch()
   const unfoldable = useSelector((state) => state.sidebarUnfoldable)
   // const sidebarShow = useSelector((state) => state.auth.sidebarShow)
-  const [sidebarShow, setSidebarShow] = useState(false)
+  const [sidebarShow, setSidebarShow] = useState(true)
   useEffect(() => {
     setSidebarShow(props.sidebarShow)
   }, [props.sidebarShow])

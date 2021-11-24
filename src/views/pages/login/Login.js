@@ -18,7 +18,17 @@ import { useForm } from 'react-hook-form'
 import { loginUser } from 'src/Actions/AuthActions'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router'
-import { ToastContainer, toast } from 'react-toastify'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+
+const schema = yup.object().shape({
+  email: yup.string().email('Invalid email address').required('This field is required.'),
+  password: yup
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(32)
+    .required('This field is required'),
+})
 
 const Login = () => {
   const {
@@ -26,9 +36,14 @@ const Login = () => {
     handleSubmit,
     // watch,
     formState: { errors },
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
   const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false)
+  const { error } = useSelector((state) => state.auth)
+  console.log('error', error)
+
   const onSubmit = (data) => {
     dispatch(loginUser(data))
   }
@@ -37,12 +52,6 @@ const Login = () => {
     return (
       <>
         <Redirect from="/login" to="/dashboard" />
-        {() => {
-          toast.success('Success Notification !', {
-            position: toast.POSITION.TOP_LEFT,
-          })
-        }}
-        <ToastContainer />
       </>
     )
   }
@@ -61,14 +70,9 @@ const Login = () => {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput
-                      defaultValue=""
-                      {...register('email', { required: true })}
-                      placeholder="email"
-                    />
+                    <CFormInput defaultValue="" {...register('email')} placeholder="email" />
                   </CInputGroup>
-                  {errors.email && <h6 className="text-danger m-2"> This field is required</h6>}
-
+                  {errors.email && <h6 className="text-danger m-2"> {errors.email.message}</h6>}
                   <CInputGroup className="mb-4">
                     <CInputGroupText onClick={() => setShowPassword(!showPassword)}>
                       <CIcon icon={cilLowVision} />
@@ -80,23 +84,11 @@ const Login = () => {
                       placeholder="Password"
                       autoComplete="current-password"
                     />
-                    {/* <Input
-        type={values.showPassword ? "text" : "password"}
-        onChange={handlePasswordChange("password")}
-        value={values.password}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-            >
-              {values.showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
-      /> */}
                   </CInputGroup>
-                  {errors.email && <h6 className="text-danger m-2"> This field is required</h6>}
+                  {errors.password && (
+                    <h6 className="text-danger m-2">{errors.password.message}</h6>
+                  )}
+                  {/* <h6 className="text-danger m-2"> {error}</h6> */}
 
                   <div className="d-grid">
                     <CButton color="link" className="px-0">
